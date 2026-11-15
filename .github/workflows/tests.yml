@@ -1,0 +1,67 @@
+name: API and UI tests
+
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 7 * * 1-5'
+      timezone: Europe/London
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Configure test URLs
+        run: cp .env.example .env
+
+      - name: Type-check
+        run: npm run build
+
+      - name: Run API and UI tests
+        if: github.event_name != 'schedule'
+        env:
+          TMPDIR: ${{ runner.temp }}
+        run: npm test
+
+      - name: Run scheduled regression tests
+        if: github.event_name == 'schedule'
+        env:
+          TMPDIR: ${{ runner.temp }}
+        run: npm run test:regression
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload Playwright failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-artifacts
+          path: ${{ runner.temp }}/moj-task-api-ui-tests-*/
+          if-no-files-found: ignore
+          retention-days: 7

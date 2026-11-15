@@ -1,0 +1,15 @@
+/node_modules/
+dist/
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+.env
+.env.local
+.env.*.local
+*.log
+.DS_Store
+coverage/
+.nyc_output/
+screenshots/
+videos/
