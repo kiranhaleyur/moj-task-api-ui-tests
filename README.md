@@ -54,11 +54,13 @@ npm run test:api -- tests/api/happy/create-user.happy.api.ts
 
 # Test tags and reports
 npm run test:api -- --grep @smoke
+npm run test:ui -- --grep @create-demo
 npm run allure:serve
 
 # With options
 npm run test:headed       # Show browser
 npm run test:debug        # Debug mode
+npm run test:ui:interactive # Playwright UI mode for UI tests
 
 # Code checks
 npm run lint
@@ -88,6 +90,8 @@ Playwright failure artifacts are stored in a temporary directory, not in the
 project's `test-results` folder. These temporary artifacts are not removed by
 the report-cleaning scripts.
 `@smoke` covers essential journeys; `@regression` covers broader scenarios.
+`@create-demo` selects demo-form UI tests, and `@create-user` selects Petstore
+user API tests. The demo-form tests do not create a real demo request.
 Tests marked `test.fixme` are skipped until implemented. UI tests use `ORANGEHRM_BASE_URL`
 from `.env`, fill the demo form with generated fictional data, and do not solve
 CAPTCHA or submit a real demo request.
@@ -95,8 +99,8 @@ CAPTCHA or submit a real demo request.
 GitHub Actions runs the API and UI tests on pull requests and manual triggers
 using the public URLs in `.env.example`. The workflow uploads Allure results
 and, on failure, Playwright artifacts. Both services must be reachable for the tests.
-The `@regression` tests also run on weekdays at 7:00 am UK time, using the
-default branch. GitHub may delay scheduled runs.
+The `@regression` tests are also scheduled for weekdays at 7:00 am UK time,
+using the default branch. GitHub may delay or drop scheduled runs.
 
 The Petstore test reads `PETSTORE_BASE_URL` from `.env` (see `.env.example`),
 creates a user with a random username suffix and verifies it with GET. It does

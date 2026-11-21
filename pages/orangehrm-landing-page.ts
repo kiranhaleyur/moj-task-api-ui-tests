@@ -18,6 +18,7 @@ export class OrangeHrmLandingPage {
 
   async navigateToDemo(): Promise<void> {
     await this.openHome();
+    await this.verifyDemoLink();
     await this.clickDemoLink();
   }
 }

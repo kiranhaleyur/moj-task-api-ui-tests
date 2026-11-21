@@ -1,7 +1,7 @@
 import { test } from '@fixtures/orangehrm-page-fixture';
 
 test.describe('OrangeHRM demo page - unhappy paths', () => {
-  test('empty submission requires CAPTCHA @ui @smoke @regression', async ({
+  test('empty submission requires CAPTCHA @ui @smoke @regression @create-demo', async ({
     orangeHrmDemoPage,
     orangeHrmLandingPage,
   }) => {
@@ -10,7 +10,7 @@ test.describe('OrangeHRM demo page - unhappy paths', () => {
     await orangeHrmDemoPage.verifyCaptchaError();
   });
 
-  test.fixme('demo form requires a full name @ui @regression', () => {
+  test.fixme('demo form shows a validation error when full name is empty @ui @regression', () => {
     // Verify the required-field message when CAPTCHA has been completed in a controlled environment.
   });
 
@@ -28,5 +28,9 @@ test.describe('OrangeHRM demo page - unhappy paths', () => {
 
   test.fixme('demo form validates field length limits @ui @regression', () => {
     // Confirm limits, then test just below the minimum and just above the maximum where applicable.
+  });
+
+  test.fixme('demo form handles previously submitted details @ui @regression', () => {
+    // Confirm the expected behaviour when entering details from an existing request.
   });
 });

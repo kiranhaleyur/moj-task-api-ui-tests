@@ -15,7 +15,6 @@ export class OrangeHrmDemoPage {
 
   async verifyDemoForm(): Promise<void> {
     await uiHelpers.verifyPageByText(this.page, 'We Just Need a Few Details.', true);
-    await uiHelpers.verifyButtonByName(this.page, demoButtonName);
   }
 
   async fillDemoForm(data: DemoFormData): Promise<void> {

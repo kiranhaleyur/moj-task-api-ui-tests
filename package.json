@@ -13,6 +13,7 @@
     "pretest": "npm run clean:reports",
     "test": "playwright test",
     "test:ui": "npm run clean:reports && playwright test --project=ui-tests",
+    "test:ui:interactive": "npm run clean:reports && playwright test --ui --project=ui-tests",
     "test:ui:firefox": "npm run clean:reports && CROSS_BROWSER=1 playwright test --project=ui-firefox",
     "test:ui:edge": "npm run clean:reports && CROSS_BROWSER=1 playwright test --project=ui-edge",
     "test:api": "npm run clean:reports && playwright test --project=api-tests",

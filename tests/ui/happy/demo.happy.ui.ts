@@ -2,7 +2,7 @@ import { test } from '@fixtures/orangehrm-page-fixture';
 import { createDemoFormData } from '@test-data/ui-demo-data';
 
 test.describe('OrangeHRM demo page - happy paths', () => {
-  test('demo request form can be filled with generated data @ui @smoke @regression', async ({
+  test('demo request form can be filled with generated data @ui @smoke @regression @create-demo', async ({
     orangeHrmDemoPage,
     orangeHrmLandingPage,
   }) => {
